@@ -27,6 +27,7 @@ RUN apt-get --quiet --yes update && \
 # I've intentionally done this so that the layers before this don't have
 # to be regenerated and fetched since the above layer is big.
 # RUN apt-get --quiet --yes install something
+RUN apt-get --quiet --yes install tmux
 
 # clean up
 RUN apt-get clean && \
