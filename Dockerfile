@@ -44,3 +44,14 @@ ADD create-user.sh /etc/my_init.d/create-user.sh
 
 # bitbake wrapper to drop root perms
 ADD bitbake.sh /usr/local/bin/bitbake
+ADD bitbake.sh /usr/local/bin/bitbake-diffsigs
+ADD bitbake.sh /usr/local/bin/bitbake-dumpsig
+ADD bitbake.sh /usr/local/bin/bitbake-layers
+ADD bitbake.sh /usr/local/bin/bitbake-prserv
+ADD bitbake.sh /usr/local/bin/bitbake-selftest
+ADD bitbake.sh /usr/local/bin/bitbake-worker
+ADD bitbake.sh /usr/local/bin/bitdoc
+ADD bitbake.sh /usr/local/bin/image-writer
+ADD bitbake.sh /usr/local/bin/toaster
+ADD bitbake.sh /usr/local/bin/toaster-eventreplay
+
