@@ -55,3 +55,5 @@ ADD bitbake.sh /usr/local/bin/image-writer
 ADD bitbake.sh /usr/local/bin/toaster
 ADD bitbake.sh /usr/local/bin/toaster-eventreplay
 
+# Derek wants to be able to cd ~
+ENV HOME /var/build
