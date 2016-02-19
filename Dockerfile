@@ -32,6 +32,9 @@ RUN curl http://www.star.lab/proxy.crt >> /usr/local/share/ca-certificates/StarL
 # RUN apt-get --quiet --yes install something
 RUN apt-get --quiet --yes install tmux
 
+# Set the default shell to bash instead of dash
+RUN echo "dash dash/sh boolean false" | debconf-set-selections && dpkg-reconfigure dash
+
 # clean up
 RUN apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
