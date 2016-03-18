@@ -27,6 +27,9 @@ tag_env:
     - "echo export COMPLETE_NAME=\"$CONTAINER_REGISTRY/$CONTAINER_NAME:$CI_BUILD_TAG\" >> $BUILD_VAR_FILE"
   only: 
     - tags
+  artifacts:
+    paths:
+      - $BUILD_VAR_FILE
 
 other_env:
   stage: set_env
