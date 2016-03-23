@@ -3,9 +3,6 @@ variables:
   CONTAINER_NAME: "yocto"
   BUILD_VAR_FILE: "build_vars"
 
-before_script:
-  - docker info
-
 stages:
   - set_env
   - build
@@ -21,6 +18,10 @@ master_env:
   artifacts:
     paths:
       - $BUILD_VAR_FILE
+  tags:
+    - docker
+    - shell
+
 tag_env:
   stage: set_env
   script:
@@ -30,6 +31,9 @@ tag_env:
   artifacts:
     paths:
       - $BUILD_VAR_FILE
+  tags:
+    - docker
+    - shell
 
 other_env:
   stage: set_env
@@ -41,12 +45,18 @@ other_env:
   artifacts:
     paths:
       - $BUILD_VAR_FILE
+  tags:
+    - docker
+    - shell
 
 build:
   stage: build
   script:
     - source $BUILD_VAR_FILE
     - docker build --rm=true -t $COMPLETE_NAME .
+  tags:
+    - docker
+    - shell
 
 publish:
   stage: publish
@@ -56,10 +66,15 @@ publish:
   only:
     - master
     - tags
+  tags:
+    - docker
+    - shell
 
 cleanup:
   stage: cleanup
   script:
     - source $BUILD_VAR_FILE
     - docker rmi $COMPLETE_NAME
-
+  tags:
+    - docker
+    - shell
