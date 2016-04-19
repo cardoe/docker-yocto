@@ -21,7 +21,7 @@ WORKDIR /var/build
 RUN apt-get --quiet --yes update && \
 	apt-get --quiet --yes install gawk wget git-core diffstat unzip \
 		texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev \
-		xterm python sudo curl
+		xterm python sudo curl libssl-dev strace ltrace
 
 # Update the CA certificates with the web proxy cert
 RUN curl http://www.star.lab/proxy.crt >> /usr/local/share/ca-certificates/StarLab.crt && update-ca-certificates --fresh
