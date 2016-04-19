@@ -21,7 +21,7 @@ WORKDIR /var/build
 RUN apt-get --quiet --yes update && \
 	apt-get --quiet --yes install gawk wget git-core diffstat unzip \
 		texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev \
-		xterm python sudo curl libssl-dev strace ltrace
+		xterm python sudo curl libssl-dev
 
 # Update the CA certificates with the web proxy cert
 RUN curl http://www.star.lab/proxy.crt >> /usr/local/share/ca-certificates/StarLab.crt && update-ca-certificates --fresh
@@ -31,6 +31,9 @@ RUN curl http://www.star.lab/proxy.crt >> /usr/local/share/ca-certificates/StarL
 # to be regenerated and fetched since the above layer is big.
 # RUN apt-get --quiet --yes install something
 RUN apt-get --quiet --yes install tmux
+
+# Add some debug utilities
+RUN apt-get --quiet --yes install strace ltrace
 
 # Set the default shell to bash instead of dash
 RUN echo "dash dash/sh boolean false" | debconf-set-selections && dpkg-reconfigure dash
