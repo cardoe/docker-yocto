@@ -24,7 +24,8 @@ RUN apt-get --quiet --yes update && \
 		xterm python sudo curl libssl-dev
 
 # Update the CA certificates with the web proxy cert
-RUN curl http://www.star.lab/proxy.crt >> /usr/local/share/ca-certificates/StarLab.crt && update-ca-certificates --fresh
+ADD proxy.crt /usr/local/share/ca-certificates/StarLab.crt
+RUN update-ca-certificates --fresh
 
 # If you need to add more packages, just do additional RUN commands here
 # I've intentionally done this so that the layers before this don't have
