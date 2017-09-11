@@ -6,8 +6,8 @@ homedir=/var/build
 # been bind mounted in. this is then used for the builduser.
 # the fallback is 580/580 which happily mapped properly under Docker
 # for Mac back to my real uid/gid.
-BUILD_UID=$(stat --printf=%u ${homedir} 2>&1 > /dev/null)
-BUILD_GID=$(stat --printf=%g ${homedir} 2>&1 > /dev/null)
+BUILD_UID=$(stat --printf=%u ${homedir} 2> /dev/null)
+BUILD_GID=$(stat --printf=%g ${homedir} 2> /dev/null)
 BUILD_UID=${BUILD_UID:-580}
 BUILD_GID=${BUILD_GID:-580}
 BUILD_UID=${BUILD_UID/#0/580}
