@@ -13,7 +13,8 @@ ENTRYPOINT ["/sbin/my_init", "--"]
 # Where we build
 RUN mkdir -p /var/build
 WORKDIR /var/build
-ENV HOME /var/build
+# workaround HOME ignore. see https://github.com/phusion/baseimage-docker/issues/119
+RUN echo /var/build > /etc/container_environment/HOME
 
 # utilize my_init from the baseimage to create the user for us
 # the reason this is dynamic is so that the caller of the container
