@@ -1,8 +1,5 @@
-# Use phusion/baseimage as base image. To make your builds reproducible, make
-# sure you lock down to a specific version, not to `latest`!
-# See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
-# a list of version numbers.
-FROM phusion/baseimage:0.9.18
+# See https://github.com/phusion/baseimage-docker
+FROM phusion/baseimage:0.9.22
 
 MAINTAINER Doug Goldstein <cardoe@cardoe.com>
 
