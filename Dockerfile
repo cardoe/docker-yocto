@@ -43,8 +43,9 @@ ENV APT_GET_UPDATE 2017-09-11
 # plus some debugging utils
 RUN apt-get --quiet --yes update && \
 	apt-get --quiet --yes install gawk wget git-core diffstat unzip \
-		texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev \
-		xterm python sudo curl libssl-dev tmux strace ltrace && \
+		texinfo gcc-multilib build-essential chrpath socat cpio python \
+        python3-pip python3-pexpect xz-utils debianutils iputils-ping \
+        libsdl1.2-dev xterm sudo curl libssl-dev tmux strace ltrace && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
