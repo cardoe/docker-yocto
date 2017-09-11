@@ -16,28 +16,7 @@ ENTRYPOINT ["/sbin/my_init", "--"]
 # Where we build
 RUN mkdir -p /var/build
 WORKDIR /var/build
-
-# Yocto's depends (plus sudo)
-RUN apt-get --quiet --yes update && \
-	apt-get --quiet --yes install gawk wget git-core diffstat unzip \
-		texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev \
-		xterm python sudo curl libssl-dev
-
-# If you need to add more packages, just do additional RUN commands here
-# I've intentionally done this so that the layers before this don't have
-# to be regenerated and fetched since the above layer is big.
-# RUN apt-get --quiet --yes install something
-RUN apt-get --quiet --yes install tmux
-
-# Add some debug utilities
-RUN apt-get --quiet --yes install strace ltrace
-
-# Set the default shell to bash instead of dash
-RUN echo "dash dash/sh boolean false" | debconf-set-selections && dpkg-reconfigure dash
-
-# clean up
-RUN apt-get clean && \
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ENV HOME /var/build
 
 # utilize my_init from the baseimage to create the user for us
 # the reason this is dynamic is so that the caller of the container
@@ -58,5 +37,21 @@ ADD bitbake.sh /usr/local/bin/image-writer
 ADD bitbake.sh /usr/local/bin/toaster
 ADD bitbake.sh /usr/local/bin/toaster-eventreplay
 
-# Derek wants to be able to cd ~
-ENV HOME /var/build
+
+# ensure our rebuilds remain stable
+ENV APT_GET_UPDATE 2017-09-11
+
+# Yocto's depends
+# plus some debugging utils
+RUN apt-get --quiet --yes update && \
+	apt-get --quiet --yes install gawk wget git-core diffstat unzip \
+		texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev \
+		xterm python sudo curl libssl-dev tmux strace ltrace && \
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Set the default shell to bash instead of dash
+RUN echo "dash dash/sh boolean false" | debconf-set-selections && dpkg-reconfigure dash
+
+# If you need to add more packages, just do additional RUN commands here
+# this is so that layers above to not have to be regenerated.
